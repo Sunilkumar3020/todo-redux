@@ -24,11 +24,7 @@ export default function Login() {
 
             const response = await api.post("/users/login", data)
 
-            // save  token in localStorage
-
-            localStorage.setItem("token", res.data.token)
-
-
+         
             console.log(response)
             setForm({
                 email: "",

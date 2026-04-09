@@ -14,4 +14,8 @@ router.get('/dashboard', authMiddleware, (req, res)=>{
     res.json({message: "Welcome to dashboard"})
 })
 
+router.get('/me', authMiddleware, (req, res)=>{
+    res.json({message: "Authorized", user: req.user})
+})
+
 export default router;
