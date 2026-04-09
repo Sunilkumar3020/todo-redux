@@ -14,7 +14,7 @@ export const register = async (req, res) => {
 
         const userExist = await User.findOne({ email })
         if (userExist) {
-            return res.status(400).json({ message: "User already exists" })
+            return res.status(409).json({ message: "User already exists" })
         }
 
         // hashed password
@@ -33,8 +33,10 @@ export const register = async (req, res) => {
         res.status(201).json({ message: "User created successfully" })
 
     } catch (error) {
-        console.error(error)
-        res.status(500).json({ message: "Server error" })
+        // console.error(error)
+        const message = error.response?.data?.message || "Something went wrong"
+        alert(message)
+        // res.status(500).json({ message: "Server error" })
     }
 }
 
@@ -42,8 +44,8 @@ export const register = async (req, res) => {
 //login user controller
 
 export const login = async (req, res) => {
+    const { email, password } = req.body;
     try {
-        const { email, password } = req.body;
 
         // find user
 

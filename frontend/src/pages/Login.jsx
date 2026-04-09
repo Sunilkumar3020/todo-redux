@@ -25,17 +25,17 @@ export default function Login() {
     }
 
     return (
-        <>
+        <div className="max-w-4xl m-auto p-5">
 
-            <h1>Login Page</h1>
+            <h1 className="text-3xl mb-5 text-center">Login Page</h1>
 
-            <form onSubmit={handleFormSubmit}>
-                <input type="text" placeholder="Email" name="email" value={form.email} onChange={handleInputChange} />
-                <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleInputChange} />
-                <button>Login</button>
+            <form onSubmit={handleFormSubmit} className="flex flex-col">
+                <input type="text" placeholder="Email" name="email" className="border border-gray-400 p-2 mb-3" value={form.email} onChange={handleInputChange} />
+                <input type="password" name="password" placeholder="Password" className="border border-gray-400 p-2 mb-3" value={form.password} onChange={handleInputChange} />
+                <button className="bg-green-700 p-2 text-2xl text-white cursor-pointer">Login</button>
             </form>
 
 
-        </>
+        </div>
     )
 }
