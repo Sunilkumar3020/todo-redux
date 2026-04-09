@@ -46,12 +46,14 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
-
+        if (!email || !password) {
+            return res.status(400).json({ message: "All fields required" })
+        }
         // find user
 
         const user = await User.findOne({ email });
         if (!user) {
-            return res.send(400).json({ message: "User not found" })
+            return res.send(400).json({ message: "Invalid credentials" })
         }
 
         // check password
@@ -64,9 +66,17 @@ export const login = async (req, res) => {
 
         // token generate
 
-        const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" })
-
-        res.json({ token })
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" })
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            uses: {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        })
+        // res.json({ token })
 
     } catch (error) {
         console.error(error)

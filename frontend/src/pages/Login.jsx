@@ -17,7 +17,11 @@ export default function Login() {
     const handleFormSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await api.post("/users/login", { form })
+            const data = {
+                email: form.email,
+                password: form.password
+            }
+            const response = await api.post("/users/login", data)
             console.log(response)
         } catch (error) {
             console.error(error)
