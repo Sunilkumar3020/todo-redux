@@ -67,19 +67,34 @@ export const login = async (req, res) => {
         // token generate
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" })
-        res.status(200).json({
-            message: "Login successful",
-            token,
-            uses: {
-                id: user._id,
-                name: user.name,
-                email: user.email
-            }
+
+        // cookie set
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false, // true in production (https)
+            sameSite: "Lax"
         })
+        res.json({ message: "Login successful" })
+        // res.status(200).json({
+        //     message: "Login successful",
+        //     token,
+        //     uses: {
+        //         id: user._id,
+        //         name: user.name,
+        //         email: user.email
+        //     }
+        // })
         // res.json({ token })
 
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: "Server error" })
     }
+}
+
+// Logout
+
+export const logout = (req, res) => {
+    res.clearCookie("token");
+    res.json({ message: "Logged out" })
 }

@@ -6,7 +6,15 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Todo from "./pages/Todo";
 
+import Dashboard from "./pages/Dashboard";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+
+
+
 function App() {
+
+
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -26,6 +34,15 @@ function App() {
     }, {
       path: "/todo",
       element: <Todo />
+    },
+    {
+      path: "/dashboard",
+      element: (
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+
+      )
     }
   ])
 

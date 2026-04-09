@@ -21,8 +21,19 @@ export default function Login() {
                 email: form.email,
                 password: form.password
             }
+
             const response = await api.post("/users/login", data)
+
+            // save  token in localStorage
+
+            localStorage.setItem("token", res.data.token)
+
+
             console.log(response)
+            setForm({
+                email: "",
+                password: ""
+            })
         } catch (error) {
             console.error(error)
         }
